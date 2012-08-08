@@ -1,0 +1,364 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		96477C3815D14751001C4F56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C3715D14751001C4F56 /* UIKit.framework */; };
+		96477C3A15D14751001C4F56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C3915D14751001C4F56 /* Foundation.framework */; };
+		96477C3C15D14751001C4F56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C3B15D14751001C4F56 /* CoreGraphics.framework */; };
+		96477C3E15D14751001C4F56 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C3D15D14751001C4F56 /* CoreData.framework */; };
+		96477C4415D14751001C4F56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96477C4215D14751001C4F56 /* InfoPlist.strings */; };
+		96477C4615D14751001C4F56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C4515D14751001C4F56 /* main.m */; };
+		96477C4A15D14751001C4F56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C4915D14751001C4F56 /* AppDelegate.m */; };
+		96477C4D15D14751001C4F56 /* TinyRunner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 96477C4B15D14751001C4F56 /* TinyRunner.xcdatamodeld */; };
+		96477C5515D14766001C4F56 /* MovementPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C5415D14766001C4F56 /* MovementPath.m */; };
+		96477C5715D14862001C4F56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C5615D14862001C4F56 /* MapKit.framework */; };
+		96477C5915D1486F001C4F56 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96477C5815D1486F001C4F56 /* CoreLocation.framework */; };
+		96477C5C15D148B0001C4F56 /* PathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C5B15D148B0001C4F56 /* PathView.m */; };
+		96477C6015D15297001C4F56 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C5E15D15297001C4F56 /* MapViewController.m */; };
+		96477C6115D15297001C4F56 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96477C5F15D15297001C4F56 /* MapViewController.xib */; };
+		96477C6415D152D0001C4F56 /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C6315D152D0001C4F56 /* AppManager.m */; };
+		96477C9115D1737F001C4F56 /* F3PlotStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C8C15D1737F001C4F56 /* F3PlotStrip.m */; };
+		96477C9215D1737F001C4F56 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96477C8E15D1737F001C4F56 /* SVProgressHUD.bundle */; };
+		96477C9315D1737F001C4F56 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 96477C9015D1737F001C4F56 /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		96477C3315D14751001C4F56 /* TinyRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96477C3715D14751001C4F56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		96477C3915D14751001C4F56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		96477C3B15D14751001C4F56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		96477C3D15D14751001C4F56 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96477C4115D14751001C4F56 /* TinyRunner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TinyRunner-Info.plist"; sourceTree = "<group>"; };
+		96477C4315D14751001C4F56 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		96477C4515D14751001C4F56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		96477C4715D14751001C4F56 /* TinyRunner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinyRunner-Prefix.pch"; sourceTree = "<group>"; };
+		96477C4815D14751001C4F56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		96477C4915D14751001C4F56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		96477C4C15D14751001C4F56 /* TinyRunner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TinyRunner.xcdatamodel; sourceTree = "<group>"; };
+		96477C5315D14766001C4F56 /* MovementPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementPath.h; sourceTree = "<group>"; };
+		96477C5415D14766001C4F56 /* MovementPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementPath.m; sourceTree = "<group>"; };
+		96477C5615D14862001C4F56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		96477C5815D1486F001C4F56 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		96477C5A15D148B0001C4F56 /* PathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathView.h; sourceTree = "<group>"; };
+		96477C5B15D148B0001C4F56 /* PathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathView.m; sourceTree = "<group>"; };
+		96477C5D15D15297001C4F56 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		96477C5E15D15297001C4F56 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		96477C5F15D15297001C4F56 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		96477C6215D152D0001C4F56 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
+		96477C6315D152D0001C4F56 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
+		96477C8B15D1737F001C4F56 /* F3PlotStrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F3PlotStrip.h; sourceTree = "<group>"; };
+		96477C8C15D1737F001C4F56 /* F3PlotStrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F3PlotStrip.m; sourceTree = "<group>"; };
+		96477C8E15D1737F001C4F56 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		96477C8F15D1737F001C4F56 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		96477C9015D1737F001C4F56 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96477C3015D14751001C4F56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96477C5915D1486F001C4F56 /* CoreLocation.framework in Frameworks */,
+				96477C5715D14862001C4F56 /* MapKit.framework in Frameworks */,
+				96477C3815D14751001C4F56 /* UIKit.framework in Frameworks */,
+				96477C3A15D14751001C4F56 /* Foundation.framework in Frameworks */,
+				96477C3C15D14751001C4F56 /* CoreGraphics.framework in Frameworks */,
+				96477C3E15D14751001C4F56 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		96477C2815D14751001C4F56 = {
+			isa = PBXGroup;
+			children = (
+				96477C8915D1737F001C4F56 /* Library */,
+				96477C3F15D14751001C4F56 /* TinyRunner */,
+				96477C3615D14751001C4F56 /* Frameworks */,
+				96477C3415D14751001C4F56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		96477C3415D14751001C4F56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96477C3315D14751001C4F56 /* TinyRunner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96477C3615D14751001C4F56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96477C3D15D14751001C4F56 /* CoreData.framework */,
+				96477C3B15D14751001C4F56 /* CoreGraphics.framework */,
+				96477C5815D1486F001C4F56 /* CoreLocation.framework */,
+				96477C3915D14751001C4F56 /* Foundation.framework */,
+				96477C5615D14862001C4F56 /* MapKit.framework */,
+				96477C3715D14751001C4F56 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		96477C3F15D14751001C4F56 /* TinyRunner */ = {
+			isa = PBXGroup;
+			children = (
+				96477C4815D14751001C4F56 /* AppDelegate.h */,
+				96477C4915D14751001C4F56 /* AppDelegate.m */,
+				96477C4B15D14751001C4F56 /* TinyRunner.xcdatamodeld */,
+				96477C4015D14751001C4F56 /* Supporting Files */,
+				96477C5315D14766001C4F56 /* MovementPath.h */,
+				96477C5415D14766001C4F56 /* MovementPath.m */,
+				96477C5A15D148B0001C4F56 /* PathView.h */,
+				96477C5B15D148B0001C4F56 /* PathView.m */,
+				96477C6215D152D0001C4F56 /* AppManager.h */,
+				96477C6315D152D0001C4F56 /* AppManager.m */,
+				96477C5D15D15297001C4F56 /* MapViewController.h */,
+				96477C5E15D15297001C4F56 /* MapViewController.m */,
+				96477C5F15D15297001C4F56 /* MapViewController.xib */,
+			);
+			path = TinyRunner;
+			sourceTree = "<group>";
+		};
+		96477C4015D14751001C4F56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				96477C4115D14751001C4F56 /* TinyRunner-Info.plist */,
+				96477C4215D14751001C4F56 /* InfoPlist.strings */,
+				96477C4515D14751001C4F56 /* main.m */,
+				96477C4715D14751001C4F56 /* TinyRunner-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		96477C8915D1737F001C4F56 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				96477C8A15D1737F001C4F56 /* F3PlotStrip */,
+				96477C8D15D1737F001C4F56 /* SVProgressHUD */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		96477C8A15D1737F001C4F56 /* F3PlotStrip */ = {
+			isa = PBXGroup;
+			children = (
+				96477C8B15D1737F001C4F56 /* F3PlotStrip.h */,
+				96477C8C15D1737F001C4F56 /* F3PlotStrip.m */,
+			);
+			path = F3PlotStrip;
+			sourceTree = "<group>";
+		};
+		96477C8D15D1737F001C4F56 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				96477C8E15D1737F001C4F56 /* SVProgressHUD.bundle */,
+				96477C8F15D1737F001C4F56 /* SVProgressHUD.h */,
+				96477C9015D1737F001C4F56 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		96477C3215D14751001C4F56 /* TinyRunner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96477C5015D14751001C4F56 /* Build configuration list for PBXNativeTarget "TinyRunner" */;
+			buildPhases = (
+				96477C2F15D14751001C4F56 /* Sources */,
+				96477C3015D14751001C4F56 /* Frameworks */,
+				96477C3115D14751001C4F56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TinyRunner;
+			productName = TinyRunner;
+			productReference = 96477C3315D14751001C4F56 /* TinyRunner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96477C2A15D14751001C4F56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = jason;
+			};
+			buildConfigurationList = 96477C2D15D14751001C4F56 /* Build configuration list for PBXProject "TinyRunner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 96477C2815D14751001C4F56;
+			productRefGroup = 96477C3415D14751001C4F56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96477C3215D14751001C4F56 /* TinyRunner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		96477C3115D14751001C4F56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96477C4415D14751001C4F56 /* InfoPlist.strings in Resources */,
+				96477C6115D15297001C4F56 /* MapViewController.xib in Resources */,
+				96477C9215D1737F001C4F56 /* SVProgressHUD.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		96477C2F15D14751001C4F56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96477C4615D14751001C4F56 /* main.m in Sources */,
+				96477C4A15D14751001C4F56 /* AppDelegate.m in Sources */,
+				96477C4D15D14751001C4F56 /* TinyRunner.xcdatamodeld in Sources */,
+				96477C5515D14766001C4F56 /* MovementPath.m in Sources */,
+				96477C5C15D148B0001C4F56 /* PathView.m in Sources */,
+				96477C6015D15297001C4F56 /* MapViewController.m in Sources */,
+				96477C6415D152D0001C4F56 /* AppManager.m in Sources */,
+				96477C9115D1737F001C4F56 /* F3PlotStrip.m in Sources */,
+				96477C9315D1737F001C4F56 /* SVProgressHUD.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		96477C4215D14751001C4F56 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96477C4315D14751001C4F56 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		96477C4E15D14751001C4F56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		96477C4F15D14751001C4F56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		96477C5115D14751001C4F56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TinyRunner/TinyRunner-Prefix.pch";
+				INFOPLIST_FILE = "TinyRunner/TinyRunner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		96477C5215D14751001C4F56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TinyRunner/TinyRunner-Prefix.pch";
+				INFOPLIST_FILE = "TinyRunner/TinyRunner-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		96477C2D15D14751001C4F56 /* Build configuration list for PBXProject "TinyRunner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96477C4E15D14751001C4F56 /* Debug */,
+				96477C4F15D14751001C4F56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96477C5015D14751001C4F56 /* Build configuration list for PBXNativeTarget "TinyRunner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96477C5115D14751001C4F56 /* Debug */,
+				96477C5215D14751001C4F56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		96477C4B15D14751001C4F56 /* TinyRunner.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				96477C4C15D14751001C4F56 /* TinyRunner.xcdatamodel */,
+			);
+			currentVersion = 96477C4C15D14751001C4F56 /* TinyRunner.xcdatamodel */;
+			path = TinyRunner.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 96477C2A15D14751001C4F56 /* Project object */;
+}
