@@ -13,6 +13,7 @@
 extern NSString * const UPDATE_LOCATION_NOTIF;
 extern NSString * const LOCATION_TRACKING_NOT_AVAIL_NOTIF;
 extern NSString * const ERROR_UPDATE_LOCATION_NOTIF;
+extern NSString * const LOAD_SAVED_TRACK_NOTIF;
 
 @interface AppManager : NSObject <CLLocationManagerDelegate>
 {

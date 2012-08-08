@@ -8,7 +8,7 @@
 
 #import "MapViewController.h"
 #import "SVProgressHUD.h"
-#import "AppDelegate.h"
+#import "SavedViewController.h"
 
 @interface MapViewController ()
 
@@ -98,6 +98,11 @@
                    name:ERROR_UPDATE_LOCATION_NOTIF
                  object:nil];
     
+    [center addObserver:self
+               selector:@selector(handleLoadSavedTrack:)
+                   name:LOAD_SAVED_TRACK_NOTIF
+                 object:nil];
+    
     // -------------------- speed plot --------------------
     
     plotView.capacity = 300;
@@ -110,10 +115,6 @@
     // -------------------- map view --------------------
     
     myMapView.showsUserLocation = YES;
-    
-    // -------------------- misc --------------------
-    
-    manager = [AppManager sharedInstance];
 }
 
 - (void)viewDidUnload
@@ -149,6 +150,42 @@
     return self.pathView;
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // if it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+	
+	if ([annotation isKindOfClass:[MyAnnotation class]])
+	{
+		// try to dequeue an existing pin view first
+        static NSString* ItemAnnotationIdentifier = @"itemAnnotationIdentifier";
+        MKPinAnnotationView* pinView = (MKPinAnnotationView *)[self.myMapView dequeueReusableAnnotationViewWithIdentifier:ItemAnnotationIdentifier];
+        if (!pinView)
+        {
+            // if an existing pin view was not available, create one
+            MKPinAnnotationView* customPinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation
+                                                                                reuseIdentifier:ItemAnnotationIdentifier];
+            if(annotation == self.startPoint)
+                customPinView.pinColor = MKPinAnnotationColorGreen;
+            else
+                customPinView.pinColor = MKPinAnnotationColorRed;
+            
+            customPinView.animatesDrop = YES;
+            customPinView.canShowCallout = YES;
+			
+            return customPinView;
+        }
+        else
+        {
+            pinView.annotation = annotation;
+        }
+        return pinView;
+	}
+	
+	return nil;
+}
+
 #pragma mark - notification handling
 
 - (void)handleLocationUpdate:(NSNotification *)notification
@@ -167,8 +204,15 @@
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 2000, 2000);
         [self.myMapView setRegion:region animated:YES];
         
-        [self configStartPoint:newLocation];
-        [self configEndPoint:newLocation];
+        [self configStartPointWithLat:newLocation.coordinate.latitude
+                                  lon:newLocation.coordinate.longitude
+                                 date:newLocation.timestamp];
+        
+        [self.myMapView addAnnotation:self.startPoint];
+        
+        [self configEndPointWithLat:newLocation.coordinate.latitude
+                                lon:newLocation.coordinate.longitude
+                               date:newLocation.timestamp];
         
         [SVProgressHUD dismiss];
     }
@@ -193,7 +237,9 @@
             [self.pathView setNeedsDisplayInMapRect:updateRect];
         }
         
-        [self configEndPoint:newLocation];
+        [self configEndPointWithLat:newLocation.coordinate.latitude
+                                lon:newLocation.coordinate.longitude
+                               date:newLocation.timestamp];
     }
     
     if(newLocation.speed >= 0.0)
@@ -210,6 +256,40 @@
     [SVProgressHUD showErrorWithStatus:@"Error occured:("];
 }
 
+- (void)handleLoadSavedTrack:(NSNotification *)notification
+{
+    NSDictionary *info = notification.userInfo;
+    NSManagedObjectID *objectID = [info objectForKey:@"objectID"];
+    
+    Track *t = (Track *)[self.context objectWithID:objectID];
+    MovementPath *aPath = [NSKeyedUnarchiver unarchiveObjectWithData:t.trackData];
+    
+    if(aPath == nil)
+    {
+        [SVProgressHUD showErrorWithStatus:@"讀取失敗"];
+        return;
+    }
+    else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"讀取成功"];
+    }
+    
+    [self clearCurrentPath];
+    
+    [self configStartPointWithLat:t.startLat.doubleValue
+                              lon:t.startLon.doubleValue
+                             date:t.startDate];
+    
+    [self configEndPointWithLat:t.endLat.doubleValue
+                            lon:t.endLon.doubleValue
+                           date:t.endDate];
+    
+    [self.myMapView addAnnotation:self.startPoint];
+    [self.myMapView addAnnotation:self.endPoint];
+    
+    [self loadPath:aPath];
+}
+
 #pragma mark - user interaction
 
 - (void)segButtonPressed:(id)sender
@@ -223,29 +303,31 @@
             
             [self clearCurrentPath];
             
-            [manager startTracking];
+            [self.manager startTracking];
             break;
         }
         case 1:
         {
             [SVProgressHUD dismiss]; // just in case
-            [manager stopTracking];
+            [self.manager stopTracking];
+            [self.myMapView addAnnotation:self.endPoint];
             [self saveCurrentPath];
             break;
         }
         case 2:
         {
-            /*
-            CLLocation *location = manager.locationManager.location;
+            CLLocation *location = self.manager.locationManager.location;
             MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000);
             [self.myMapView setRegion:region animated:YES];
-             */
-            [self clearCurrentPath];
             break;
         }
         case 3:
         {
-            [self loadLastSavedPath];
+            SavedViewController *svc = [[[SavedViewController alloc] init] autorelease];
+            UINavigationController *nav=[[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
+            [nav.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+            [self.appDelegate presentModalViewController:nav animated:YES];
+            
             break;
         }
         default:
@@ -257,27 +339,31 @@
 
 #pragma mark - misc
 
-- (void)configStartPoint:(CLLocation *)location
+- (void)configStartPointWithLat:(double)lat
+                            lon:(double)lon
+                           date:(NSDate *)date
 {
     MyAnnotation *anno = [[MyAnnotation alloc] init];
     anno.name = @"起點";
-    anno.date = location.timestamp;
-    anno.dateString = [manager.dateFormatter stringFromDate:anno.date];
-    anno.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-    anno.lng = [NSNumber numberWithDouble:location.coordinate.longitude];
+    anno.date = date;
+    anno.dateString = [self.manager.dateFormatter stringFromDate:anno.date];
+    anno.lat = [NSNumber numberWithDouble:lat];
+    anno.lng = [NSNumber numberWithDouble:lon];
     
     self.startPoint = anno;
     [anno release];
 }
 
-- (void)configEndPoint:(CLLocation *)location
+- (void)configEndPointWithLat:(double)lat
+                          lon:(double)lon
+                         date:(NSDate *)date
 {
     MyAnnotation *anno = [[MyAnnotation alloc] init];
     anno.name = @"終點";
-    anno.date = location.timestamp;
-    anno.dateString = [manager.dateFormatter stringFromDate:anno.date];
-    anno.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-    anno.lng = [NSNumber numberWithDouble:location.coordinate.longitude];
+    anno.date = date;
+    anno.dateString = [self.manager.dateFormatter stringFromDate:anno.date];
+    anno.lat = [NSNumber numberWithDouble:lat];
+    anno.lng = [NSNumber numberWithDouble:lon];
     
     self.endPoint = anno;
     [anno release];
@@ -319,8 +405,8 @@
         [SVProgressHUD showErrorWithStatus:@"儲存失敗"];
     }
     
-    Track *t = [manager createTrack];
-    t.name = [manager.dateFormatter stringFromDate:self.startPoint.date];
+    Track *t = [self.manager createTrack];
+    t.name = [self.manager.dateFormatter stringFromDate:self.startPoint.date];
     t.note = @"";
     t.startDate = self.startPoint.date;
     t.startLat = self.startPoint.lat;
@@ -336,7 +422,7 @@
     t.trackData = [NSKeyedArchiver archivedDataWithRootObject:self.mPath];
     t.speedData = [NSKeyedArchiver archivedDataWithRootObject:plotView.data];
     
-    [manager save];
+    [self.manager save];
 }
 
 - (void)loadLastSavedPath
@@ -355,13 +441,12 @@
         [SVProgressHUD showSuccessWithStatus:@"讀取成功"];
     }
     
+    [self clearCurrentPath];
     [self loadPath:aPath];
 }
 
 - (void)loadPath:(MovementPath *)aPath
 {
-    [self clearCurrentPath];
-    
     self.mPath = aPath;
     [self.myMapView addOverlay:self.mPath];
     [self.myMapView setNeedsDisplay];

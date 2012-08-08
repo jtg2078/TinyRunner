@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "AppManager.h"
+#import "BaseViewController.h"
 #import "MovementPath.h"
 #import "PathView.h"
 #import "F3PlotStrip.h"
 #import "MyAnnotation.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+@interface MapViewController : BaseViewController <MKMapViewDelegate>
 {
-    AppManager *manager;
+    
 }
 
 @property (retain, nonatomic) IBOutlet MKMapView *myMapView;

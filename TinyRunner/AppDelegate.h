@@ -19,4 +19,7 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;
+- (void)dismissModalViewControllerAnimated:(BOOL)animated;
+
 @end

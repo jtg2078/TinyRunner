@@ -29,6 +29,7 @@
 		969D892515D2BC6F00F719A0 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D892415D2BC6F00F719A0 /* Track.m */; };
 		969D892915D2CE1000F719A0 /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D892715D2CE1000F719A0 /* SavedViewController.m */; };
 		969D892A15D2CE1000F719A0 /* SavedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969D892815D2CE1000F719A0 /* SavedViewController.xib */; };
+		969D892D15D2D6BC00F719A0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D892C15D2D6BC00F719A0 /* BaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,8 +54,8 @@
 		96477C5D15D15297001C4F56 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		96477C5E15D15297001C4F56 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		96477C5F15D15297001C4F56 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
-		96477C6215D152D0001C4F56 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppManager.h; sourceTree = "<group>"; };
-		96477C6315D152D0001C4F56 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppManager.m; sourceTree = "<group>"; };
+		96477C6215D152D0001C4F56 /* AppManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppManager.h; path = TinyRunner/AppManager.h; sourceTree = "<group>"; };
+		96477C6315D152D0001C4F56 /* AppManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppManager.m; path = TinyRunner/AppManager.m; sourceTree = "<group>"; };
 		96477C8B15D1737F001C4F56 /* F3PlotStrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = F3PlotStrip.h; sourceTree = "<group>"; };
 		96477C8C15D1737F001C4F56 /* F3PlotStrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = F3PlotStrip.m; sourceTree = "<group>"; };
 		96477C8E15D1737F001C4F56 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -62,11 +63,13 @@
 		96477C9015D1737F001C4F56 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		969D891F15D2B5D700F719A0 /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
 		969D892015D2B5D700F719A0 /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
-		969D892315D2BC6F00F719A0 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
-		969D892415D2BC6F00F719A0 /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Track.m; sourceTree = "<group>"; };
+		969D892315D2BC6F00F719A0 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Track.h; path = TinyRunner/Track.h; sourceTree = "<group>"; };
+		969D892415D2BC6F00F719A0 /* Track.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Track.m; path = TinyRunner/Track.m; sourceTree = "<group>"; };
 		969D892615D2CE1000F719A0 /* SavedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
 		969D892715D2CE1000F719A0 /* SavedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedViewController.m; sourceTree = "<group>"; };
 		969D892815D2CE1000F719A0 /* SavedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedViewController.xib; sourceTree = "<group>"; };
+		969D892B15D2D6BC00F719A0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		969D892C15D2D6BC00F719A0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				96477C8915D1737F001C4F56 /* Library */,
+				969D892F15D2DB1400F719A0 /* Manager */,
+				969D893015D2DB2100F719A0 /* Persistence */,
 				96477C3F15D14751001C4F56 /* TinyRunner */,
 				96477C3615D14751001C4F56 /* Frameworks */,
 				96477C3415D14751001C4F56 /* Products */,
@@ -120,18 +125,15 @@
 		96477C3F15D14751001C4F56 /* TinyRunner */ = {
 			isa = PBXGroup;
 			children = (
+				96477C4015D14751001C4F56 /* Supporting Files */,
 				96477C4815D14751001C4F56 /* AppDelegate.h */,
 				96477C4915D14751001C4F56 /* AppDelegate.m */,
-				96477C4B15D14751001C4F56 /* TinyRunner.xcdatamodeld */,
-				969D892315D2BC6F00F719A0 /* Track.h */,
-				969D892415D2BC6F00F719A0 /* Track.m */,
-				96477C4015D14751001C4F56 /* Supporting Files */,
+				969D892B15D2D6BC00F719A0 /* BaseViewController.h */,
+				969D892C15D2D6BC00F719A0 /* BaseViewController.m */,
 				96477C5315D14766001C4F56 /* MovementPath.h */,
 				96477C5415D14766001C4F56 /* MovementPath.m */,
 				96477C5A15D148B0001C4F56 /* PathView.h */,
 				96477C5B15D148B0001C4F56 /* PathView.m */,
-				96477C6215D152D0001C4F56 /* AppManager.h */,
-				96477C6315D152D0001C4F56 /* AppManager.m */,
 				96477C5D15D15297001C4F56 /* MapViewController.h */,
 				96477C5E15D15297001C4F56 /* MapViewController.m */,
 				96477C5F15D15297001C4F56 /* MapViewController.xib */,
@@ -181,6 +183,25 @@
 				96477C9015D1737F001C4F56 /* SVProgressHUD.m */,
 			);
 			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		969D892F15D2DB1400F719A0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				96477C6215D152D0001C4F56 /* AppManager.h */,
+				96477C6315D152D0001C4F56 /* AppManager.m */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		969D893015D2DB2100F719A0 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				96477C4B15D14751001C4F56 /* TinyRunner.xcdatamodeld */,
+				969D892315D2BC6F00F719A0 /* Track.h */,
+				969D892415D2BC6F00F719A0 /* Track.m */,
+			);
+			name = Persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +281,7 @@
 				969D892115D2B5D700F719A0 /* MyAnnotation.m in Sources */,
 				969D892515D2BC6F00F719A0 /* Track.m in Sources */,
 				969D892915D2CE1000F719A0 /* SavedViewController.m in Sources */,
+				969D892D15D2D6BC00F719A0 /* BaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +398,8 @@
 				96477C4C15D14751001C4F56 /* TinyRunner.xcdatamodel */,
 			);
 			currentVersion = 96477C4C15D14751001C4F56 /* TinyRunner.xcdatamodel */;
-			path = TinyRunner.xcdatamodeld;
+			name = TinyRunner.xcdatamodeld;
+			path = TinyRunner/TinyRunner.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface SavedViewController : UIViewController
+@interface SavedViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 {
     
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *myTableView;
+@property (retain, nonatomic) NSFetchedResultsController *frc;
 
 @end

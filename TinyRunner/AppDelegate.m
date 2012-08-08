@@ -167,4 +167,16 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - my addition
+
+- (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated
+{
+	[self.window.rootViewController presentModalViewController:modalViewController animated:animated];
+}
+
+- (void)dismissModalViewControllerAnimated:(BOOL)animated
+{
+	[self.window.rootViewController dismissModalViewControllerAnimated:animated];
+}
+
 @end
