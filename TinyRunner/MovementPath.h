@@ -11,7 +11,7 @@
 #import <pthread.h>
 
 
-@interface MovementPath : NSObject <MKOverlay>
+@interface MovementPath : NSObject <NSCoding, MKOverlay>
 {
     MKMapPoint *points;
     NSUInteger pointCount;
@@ -24,6 +24,7 @@
 
 @property (readonly) MKMapPoint *points;
 @property (readonly) NSUInteger pointCount;
+@property (readonly) CLLocationDistance distanceSoFar;
 
 - (id)initWithCenterCoordinate:(CLLocationCoordinate2D)coord;
 

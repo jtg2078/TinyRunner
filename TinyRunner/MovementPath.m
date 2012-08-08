@@ -19,6 +19,7 @@
 
 @synthesize points;
 @synthesize pointCount;
+@synthesize distanceSoFar;
 
 #pragma mark - dealloc
 
@@ -30,6 +31,38 @@
 }
 
 #pragma mark - init
+
+- (id)initWithCoder:(NSCoder *)coder {
+	self = [super init];
+	if (self != nil) {
+        
+        NSArray *pts = (NSArray *)[coder decodeObjectForKey:@"points"];
+        
+        pointSpace = pts.count;
+        pointCount = pts.count;
+        points = malloc(sizeof(MKMapPoint) * pointSpace);
+        
+        int i = 0;
+        for(NSArray *ptInfo in pts)
+        {
+            NSNumber *x = [ptInfo objectAtIndex:0];
+            NSNumber *y = [ptInfo objectAtIndex:1];
+            MKMapPoint pt = MKMapPointMake(x.doubleValue, y.doubleValue);
+            points[i] = pt;
+            i++;
+        }
+        
+        NSString *string = [coder decodeObjectForKey:@"boundingMapRect"];
+        boundingMapRect = [self NSStringToMKMapRect:string];
+        
+        NSNumber *dist = [coder decodeObjectForKey:@"distanceSoFar"];
+        distanceSoFar = dist.doubleValue;
+        
+        // initialize read-write lock for drawing and updates
+        pthread_rwlock_init(&rwLock, NULL);
+	}
+	return self;
+}
 
 - (id)initWithCenterCoordinate:(CLLocationCoordinate2D)coord
 {
@@ -53,10 +86,35 @@
         MKMapRect worldRect = MKMapRectMake(0, 0, MKMapSizeWorld.width, MKMapSizeWorld.height);
         boundingMapRect = MKMapRectIntersection(boundingMapRect, worldRect);
         
+        distanceSoFar = 0;
+        
         // initialize read-write lock for drawing and updates
         pthread_rwlock_init(&rwLock, NULL);
     }
     return self;
+}
+
+#pragma mark - NSCoder
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    NSMutableArray *pts = [NSMutableArray arrayWithCapacity:pointCount];
+    
+    for(int i = 0; i< pointCount; i++)
+    {
+        MKMapPoint pt = points[i];
+        NSArray *ptInfo = [NSArray arrayWithObjects:
+                           [NSNumber numberWithDouble:pt.x],
+                           [NSNumber numberWithDouble:pt.y], nil];
+        [pts addObject:ptInfo];
+    }
+    [coder encodeObject:pts             forKey:@"points"];
+    
+    NSString *string = [self MKMapRectToNSString:boundingMapRect];
+    [coder encodeObject:string          forKey:@"boundingMapRect"];
+    
+    NSNumber *dist = [NSNumber numberWithDouble:distanceSoFar];
+    [coder encodeObject:dist            forKey:@"distanceSoFar"];
 }
 
 #pragma mark - MKOverlay
@@ -118,11 +176,36 @@
         double maxY = MAX(newPoint.y, prevPoint.y);
         
         updateRect = MKMapRectMake(minX, minY, maxX - minX, maxY - minY);
+        
+        distanceSoFar += metersApart;
     }
     
     pthread_rwlock_unlock(&rwLock);
     
     return updateRect;
+}
+
+#pragma mark - helper
+
+- (NSString *)MKMapRectToNSString:(MKMapRect)mapRect
+{
+    CGRect rect;
+    rect.origin.x = mapRect.origin.x;
+    rect.origin.y = mapRect.origin.y;
+    rect.size.width = mapRect.size.width;
+    rect.size.height = mapRect.size.height;
+    return NSStringFromCGRect(rect);
+}
+
+- (MKMapRect)NSStringToMKMapRect:(NSString *)str
+{
+    MKMapRect mapRect;
+    CGRect rect = CGRectFromString(str);
+    mapRect.origin.x = rect.origin.x;
+    mapRect.origin.y = rect.origin.y;
+    mapRect.size.width = rect.size.width;
+    mapRect.size.height = rect.size.height;
+    return mapRect;
 }
 
 @end

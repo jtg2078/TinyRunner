@@ -7,6 +7,7 @@
 //
 
 #import "AppManager.h"
+#import "AppDelegate.h"
 
 NSString * const UPDATE_LOCATION_NOTIF = @"UPDATE_LOCATION_NOTIF";
 NSString * const LOCATION_TRACKING_NOT_AVAIL_NOTIF = @"LOCATION_TRACKING_NOT_AVAIL_NOTIF";
@@ -19,12 +20,27 @@ NSString * const ERROR_UPDATE_LOCATION_NOTIF = @"ERROR_UPDATE_LOCATION_NOTIF";
 #pragma mark - synthesize
 
 @synthesize locationManager;
+@synthesize useHighAccuracyMode;
+@synthesize context;
+@synthesize dateFormatter;
+
+- (NSManagedObjectContext *)context
+{
+    if(context == nil)
+    {
+        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        context = [delegate.managedObjectContext retain];
+    }
+    return context;
+}
 
 #pragma dealloc
 
 - (void)dealloc
 {
     [locationManager release];
+    [context release];
+    [dateFormatter release];
     [super dealloc];
 }
 
@@ -44,9 +60,15 @@ NSString * const ERROR_UPDATE_LOCATION_NOTIF = @"ERROR_UPDATE_LOCATION_NOTIF";
     locationManager = [[CLLocationManager alloc] init];
     locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     center = [NSNotificationCenter defaultCenter];
+    
+    useHighAccuracyMode = NO;
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    [dateFormatter setDateFormat:@"MM-dd HH:mm:ss"];
 }
 
-#pragma mark - main methods
+#pragma mark - gps methods
 
 - (void)startTracking
 {
@@ -65,6 +87,23 @@ NSString * const ERROR_UPDATE_LOCATION_NOTIF = @"ERROR_UPDATE_LOCATION_NOTIF";
     locationManager.delegate = nil;
 }
 
+#pragma mark - core data method
+
+- (Track *)createTrack
+{
+    Track *track = [NSEntityDescription insertNewObjectForEntityForName:@"Track"
+                                                 inManagedObjectContext:self.context];
+    return track;
+}
+
+- (NSError *)save
+{
+    NSError *error = nil;
+    [self.context save:&error];
+    
+    return error;
+}
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -73,29 +112,32 @@ NSString * const ERROR_UPDATE_LOCATION_NOTIF = @"ERROR_UPDATE_LOCATION_NOTIF";
 {
     // -------------------- filters for better accuracy --------------------
     
-    // Filter out nil locations
-    if (!newLocation) return;
-    
-    // Filter out points by invalid accuracy
-    if (newLocation.horizontalAccuracy < 0) return;
-    if (newLocation.horizontalAccuracy > 66) return;
-    
-    // Filter out points by invalid accuracy
+    if(self.useHighAccuracyMode == YES)
+    {
+        // Filter out nil locations
+        if (!newLocation) return;
+        
+        // Filter out points by invalid accuracy
+        if (newLocation.horizontalAccuracy < 0) return;
+        if (newLocation.horizontalAccuracy > 66) return;
+        
+        // Filter out points by invalid accuracy
 #if !TARGET_IPHONE_SIMULATOR
-    if (newLocation.verticalAccuracy < 0) return;
+        if (newLocation.verticalAccuracy < 0) return;
 #endif
-    
-    // Filter out points that are out of order
-    NSTimeInterval secondsSinceLastPoint = [newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp];
-    if (secondsSinceLastPoint < 0) return;
-    
-    // Make sure the update is new not cached
-    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
-    if (locationAge > 5.0) return;
-    
-    // Check to see if old and new are the same
-    if ((oldLocation.coordinate.latitude == newLocation.coordinate.latitude) && (oldLocation.coordinate.longitude == newLocation.coordinate.longitude))
-        return;
+        
+        // Filter out points that are out of order
+        NSTimeInterval secondsSinceLastPoint = [newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp];
+        if (secondsSinceLastPoint < 0) return;
+        
+        // Make sure the update is new not cached
+        NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+        if (locationAge > 5.0) return;
+        
+        // Check to see if old and new are the same
+        if ((oldLocation.coordinate.latitude == newLocation.coordinate.latitude) && (oldLocation.coordinate.longitude == newLocation.coordinate.longitude))
+            return;
+    }
     
     // ----------------------------------------------------------------------
     

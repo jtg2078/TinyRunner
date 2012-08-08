@@ -12,6 +12,7 @@
 #import "MovementPath.h"
 #import "PathView.h"
 #import "F3PlotStrip.h"
+#import "MyAnnotation.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 {
@@ -25,6 +26,9 @@
 
 @property (retain, nonatomic) MovementPath *mPath;
 @property (retain, nonatomic) PathView *pathView;
+
+@property (retain, nonatomic) MyAnnotation *startPoint;
+@property (retain, nonatomic) MyAnnotation *endPoint;
 
 
 @end

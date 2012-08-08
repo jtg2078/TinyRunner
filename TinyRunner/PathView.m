@@ -94,6 +94,7 @@ static BOOL lineIntersectsRect(MKMapPoint p0, MKMapPoint p1, MKMapRect r)
     NSUInteger i;
     for (i = 1; i < pointCount - 1; i++)
     {
+        //NSLog(@"%d: %f %f", i, points[i].x, points[i].y);
         point = points[i];
         double a2b2 = POW2(point.x - lastPoint.x) + POW2(point.y - lastPoint.y);
         if (a2b2 >= c2) {
