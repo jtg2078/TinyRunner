@@ -24,4 +24,6 @@
 
 - (void)zoomToFitOverlays:(NSArray *)someOverlays animated:(BOOL)animated insetProportion:(CGFloat)insetProportion; //inset 0->1, defaults in other methods to .1 (10%)
 
+- (void)zoomToFitAnnotations;
+
 @end

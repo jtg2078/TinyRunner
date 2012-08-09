@@ -297,7 +297,7 @@
     self.speedLabel.text = [NSString stringWithFormat:@"全長:%.02f公尺, 平均速度:%0.2f公里/小時"
                             , t.totalDistance.doubleValue, avgSpeedInKM];
     
-    [self.myMapView zoomToFitOverlay:self.mPath animated:YES];
+    [self.myMapView zoomToFitAnnotations];
 }
 
 #pragma mark - user interaction
@@ -327,12 +327,17 @@
         case 2:
         {
             CLLocation *location = self.manager.locationManager.location;
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000);
+            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500);
             [self.myMapView setRegion:region animated:YES];
+            
+            self.segControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+            
             break;
         }
         case 3:
         {
+            self.segControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+            
             SavedViewController *svc = [[[SavedViewController alloc] init] autorelease];
             UINavigationController *nav=[[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
             [nav.navigationBar setBarStyle:UIBarStyleBlackOpaque];
@@ -463,9 +468,9 @@
 
 - (void)loadPlot:(NSArray *)data
 {
+    [self.plotView clear];
     self.plotView.capacity = data.count;
     self.plotView.data = data;
-    [self.plotView clear];
 }
 
 @end

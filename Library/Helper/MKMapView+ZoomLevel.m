@@ -145,4 +145,61 @@
     [self setRegion:region animated:animated];
 }
 
+- (void)zoomToFitAnnotations {
+    
+    NSArray *coordinates = [self valueForKeyPath:@"annotations.coordinate"];
+    
+    
+    
+    CLLocationCoordinate2D maxCoord = {-90.0f, -180.0f};
+    
+    CLLocationCoordinate2D minCoord = {90.0f, 180.0f};
+    
+    
+    
+    for(NSValue *value in coordinates) {
+        
+        CLLocationCoordinate2D coord = {0.0f, 0.0f};
+        
+        [value getValue:&coord];
+        
+        if(coord.longitude > maxCoord.longitude) {
+            
+            maxCoord.longitude = coord.longitude;
+            
+        }
+        
+        if(coord.latitude > maxCoord.latitude) {
+            
+            maxCoord.latitude = coord.latitude;
+            
+        }
+        
+        if(coord.longitude < minCoord.longitude) {
+            
+            minCoord.longitude = coord.longitude;
+            
+        }
+        
+        if(coord.latitude < minCoord.latitude) {
+            
+            minCoord.latitude = coord.latitude;
+            
+        }
+        
+    }
+    
+    MKCoordinateRegion region = {{0.0f, 0.0f}, {0.0f, 0.0f}};
+    
+    region.center.longitude = (minCoord.longitude + maxCoord.longitude) / 2.0;
+    
+    region.center.latitude = (minCoord.latitude + maxCoord.latitude) / 2.0;
+    
+    region.span.longitudeDelta = maxCoord.longitude - minCoord.longitude;
+    
+    region.span.latitudeDelta = maxCoord.latitude - minCoord.latitude;
+    
+    [self setRegion:region animated:YES];
+}
+
 @end
