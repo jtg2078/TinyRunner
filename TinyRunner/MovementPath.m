@@ -54,6 +54,7 @@
         
         NSString *string = [coder decodeObjectForKey:@"boundingMapRect"];
         boundingMapRect = [self NSStringToMKMapRect:string];
+        //boundingMapRect = [self adjustBoundingMapRect];
         
         NSNumber *dist = [coder decodeObjectForKey:@"distanceSoFar"];
         distanceSoFar = dist.doubleValue;
@@ -206,6 +207,30 @@
     mapRect.size.width = rect.size.width;
     mapRect.size.height = rect.size.height;
     return mapRect;
+}
+
+- (MKMapRect)adjustBoundingMapRect
+{
+    MKMapPoint pt = points[pointCount - 1];
+    MKMapRect zoomRect = MKMapRectMake(pt.x, pt.y, 0, 0);
+    
+    for(int i = 0; i< pointCount; i++)
+    {
+        pt = points[i];
+        
+        MKMapRect pointRect = MKMapRectMake(pt.x, pt.y, 0, 0);
+        
+        if (MKMapRectIsNull(zoomRect))
+        {
+            zoomRect = pointRect;
+        }
+        else
+        {
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+    }
+    
+    return zoomRect;
 }
 
 @end

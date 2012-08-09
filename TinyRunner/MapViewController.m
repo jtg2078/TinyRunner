@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "SVProgressHUD.h"
 #import "SavedViewController.h"
+#import "MKMapView+ZoomLevel.h"
 
 @interface MapViewController ()
 
@@ -287,7 +288,16 @@
     [self.myMapView addAnnotation:self.startPoint];
     [self.myMapView addAnnotation:self.endPoint];
     
+    NSArray *data = [NSKeyedUnarchiver unarchiveObjectWithData:t.speedData];
+    [self loadPlot:data];
+    
     [self loadPath:aPath];
+    
+    double avgSpeedInKM = t.averageSpeed.doubleValue * 3.6;
+    self.speedLabel.text = [NSString stringWithFormat:@"全長:%.02f公尺, 平均速度:%0.2f公里/小時"
+                            , t.totalDistance.doubleValue, avgSpeedInKM];
+    
+    [self.myMapView zoomToFitOverlay:self.mPath animated:YES];
 }
 
 #pragma mark - user interaction
@@ -449,7 +459,13 @@
 {
     self.mPath = aPath;
     [self.myMapView addOverlay:self.mPath];
-    [self.myMapView setNeedsDisplay];
+}
+
+- (void)loadPlot:(NSArray *)data
+{
+    self.plotView.capacity = data.count;
+    self.plotView.data = data;
+    [self.plotView clear];
 }
 
 @end

@@ -34,4 +34,7 @@
 
 - (void)unlockForReading;
 
+- (NSString *)MKMapRectToNSString:(MKMapRect)mapRect;
+- (MKMapRect)NSStringToMKMapRect:(NSString *)str;
+
 @end

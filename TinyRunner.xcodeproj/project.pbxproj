@@ -30,6 +30,7 @@
 		969D892915D2CE1000F719A0 /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D892715D2CE1000F719A0 /* SavedViewController.m */; };
 		969D892A15D2CE1000F719A0 /* SavedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969D892815D2CE1000F719A0 /* SavedViewController.xib */; };
 		969D892D15D2D6BC00F719A0 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D892C15D2D6BC00F719A0 /* BaseViewController.m */; };
+		969D894B15D33E0A00F719A0 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 969D894A15D33E0A00F719A0 /* MKMapView+ZoomLevel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,8 @@
 		969D892815D2CE1000F719A0 /* SavedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SavedViewController.xib; sourceTree = "<group>"; };
 		969D892B15D2D6BC00F719A0 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		969D892C15D2D6BC00F719A0 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		969D894915D33E0A00F719A0 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+ZoomLevel.h"; path = "Helper/MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		969D894A15D33E0A00F719A0 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+ZoomLevel.m"; path = "Helper/MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +163,7 @@
 		96477C8915D1737F001C4F56 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				969D894715D33DE500F719A0 /* Helper */,
 				96477C8A15D1737F001C4F56 /* F3PlotStrip */,
 				96477C8D15D1737F001C4F56 /* SVProgressHUD */,
 			);
@@ -202,6 +206,15 @@
 				969D892415D2BC6F00F719A0 /* Track.m */,
 			);
 			name = Persistence;
+			sourceTree = "<group>";
+		};
+		969D894715D33DE500F719A0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				969D894915D33E0A00F719A0 /* MKMapView+ZoomLevel.h */,
+				969D894A15D33E0A00F719A0 /* MKMapView+ZoomLevel.m */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +295,7 @@
 				969D892515D2BC6F00F719A0 /* Track.m in Sources */,
 				969D892915D2CE1000F719A0 /* SavedViewController.m in Sources */,
 				969D892D15D2D6BC00F719A0 /* BaseViewController.m in Sources */,
+				969D894B15D33E0A00F719A0 /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
