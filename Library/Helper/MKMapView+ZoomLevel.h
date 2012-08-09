@@ -26,4 +26,6 @@
 
 - (void)zoomToFitAnnotations;
 
+- (void)zoomMapViewToFitPoints:(MKMapPoint *)points pointsCount:(int)count animated:(BOOL)animated;
+
 @end

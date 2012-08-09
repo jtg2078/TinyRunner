@@ -52,6 +52,7 @@
                                                                   target:self
                                                                   action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = leftButton;
+    [leftButton release];
     
     // -------------------- data --------------------
     

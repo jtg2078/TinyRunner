@@ -14,6 +14,11 @@
 #import "F3PlotStrip.h"
 #import "MyAnnotation.h"
 
+typedef enum{
+    ControllerStateNotTracking = 0,
+    ControllerStateIsTracking,
+}ControllerState;
+
 @interface MapViewController : BaseViewController <MKMapViewDelegate>
 {
     
@@ -29,6 +34,7 @@
 
 @property (retain, nonatomic) MyAnnotation *startPoint;
 @property (retain, nonatomic) MyAnnotation *endPoint;
+@property (assign, nonatomic) ControllerState currentState;
 
 
 @end

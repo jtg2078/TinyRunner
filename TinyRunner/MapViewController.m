@@ -21,6 +21,11 @@
 
 #define LAST_SAVED_PATH     @"lastPath"
 
+#define START_TRACKING      @"開始記錄"
+#define STOP_TRACKING       @"停止記錄"
+#define MY_POSITION         @"我的位置"
+#define TRACKS_LIST         @"記錄列表"
+
 #pragma mark - synthesize
 
 @synthesize myMapView;
@@ -31,6 +36,7 @@
 @synthesize pathView;
 @synthesize startPoint;
 @synthesize endPoint;
+@synthesize currentState;
 
 #pragma mark - dealloc
 
@@ -69,7 +75,7 @@
     
     // -------------------- navigation bar --------------------
     
-    NSArray *itemArray = [NSArray arrayWithObjects:@"開始記錄", @"停止記錄", @"我的位置", @"記錄列表", nil];
+    NSArray *itemArray = [NSArray arrayWithObjects:@"開始記錄", @"記錄列表", nil];
     segControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     segControl.frame = CGRectMake(0, 0, 250, 30);
     segControl.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -116,6 +122,10 @@
     // -------------------- map view --------------------
     
     myMapView.showsUserLocation = YES;
+    
+    // -------------------- map view --------------------
+    
+    currentState = ControllerStateNotTracking;
 }
 
 - (void)viewDidUnload
@@ -165,8 +175,8 @@
         if (!pinView)
         {
             // if an existing pin view was not available, create one
-            MKPinAnnotationView* customPinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation
-                                                                                reuseIdentifier:ItemAnnotationIdentifier];
+            MKPinAnnotationView* customPinView = [[[MKPinAnnotationView alloc]initWithAnnotation:annotation
+                                                                                reuseIdentifier:ItemAnnotationIdentifier] autorelease];
             if(annotation == self.startPoint)
                 customPinView.pinColor = MKPinAnnotationColorGreen;
             else
@@ -297,59 +307,56 @@
     self.speedLabel.text = [NSString stringWithFormat:@"全長:%.02f公尺, 平均速度:%0.2f公里/小時"
                             , t.totalDistance.doubleValue, avgSpeedInKM];
     
-    [self.myMapView zoomToFitAnnotations];
+    [self.myMapView zoomMapViewToFitPoints:mPath.points
+                               pointsCount:mPath.pointCount
+                                  animated:YES];
 }
 
 #pragma mark - user interaction
 
 - (void)segButtonPressed:(id)sender
 {
-    // @"開始記錄", @"停止記錄", @"我的位置", @"記錄列表"
-    switch (((UISegmentedControl *)sender).selectedSegmentIndex)
+    UISegmentedControl *s = (UISegmentedControl *)sender;
+    NSString *selected = [s titleForSegmentAtIndex:s.selectedSegmentIndex];
+    
+    if([selected isEqualToString:START_TRACKING] == YES)
     {
-        case 0:
-        {
-            [SVProgressHUD showWithStatus:@"定位中..."];
-            
-            [self clearCurrentPath];
-            
-            [self.manager startTracking];
-            break;
-        }
-        case 1:
-        {
-            [SVProgressHUD dismiss]; // just in case
-            [self.manager stopTracking];
-            [self.myMapView addAnnotation:self.endPoint];
-            [self saveCurrentPath];
-            break;
-        }
-        case 2:
-        {
-            CLLocation *location = self.manager.locationManager.location;
-            MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500);
-            [self.myMapView setRegion:region animated:YES];
-            
-            self.segControl.selectedSegmentIndex = UISegmentedControlNoSegment;
-            
-            break;
-        }
-        case 3:
-        {
-            self.segControl.selectedSegmentIndex = UISegmentedControlNoSegment;
-            
-            SavedViewController *svc = [[[SavedViewController alloc] init] autorelease];
-            UINavigationController *nav=[[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
-            [nav.navigationBar setBarStyle:UIBarStyleBlackOpaque];
-            [self.appDelegate presentModalViewController:nav animated:YES];
-            
-            break;
-        }
-        default:
-        {
-            break;
-        }
+        currentState = ControllerStateIsTracking;
+        
+        [SVProgressHUD showWithStatus:@"定位中..."];
+        [self clearCurrentPath];
+        [self.manager startTracking];
+        
+        [s setTitle:STOP_TRACKING   forSegmentAtIndex:0];
+        [s setTitle:MY_POSITION     forSegmentAtIndex:1];
     }
+    else if([selected isEqualToString:STOP_TRACKING] == YES)
+    {
+        currentState = ControllerStateNotTracking;
+        
+        [SVProgressHUD dismiss]; // just in case
+        [self.manager stopTracking];
+        [self.myMapView addAnnotation:self.endPoint];
+        [self saveCurrentPath];
+        
+        [s setTitle:START_TRACKING      forSegmentAtIndex:0];
+        [s setTitle:TRACKS_LIST         forSegmentAtIndex:1];
+    }
+    else if([selected isEqualToString:MY_POSITION] == YES)
+    {
+        CLLocation *location = self.manager.locationManager.location;
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location.coordinate, 500, 500);
+        [self.myMapView setRegion:region animated:YES];
+    }
+    else if([selected isEqualToString:TRACKS_LIST] == YES)
+    {
+        SavedViewController *svc = [[[SavedViewController alloc] init] autorelease];
+        UINavigationController *nav=[[[UINavigationController alloc] initWithRootViewController:svc] autorelease];
+        [nav.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+        [self.appDelegate presentModalViewController:nav animated:YES];
+    }
+    
+    s.selectedSegmentIndex = UISegmentedControlNoSegment;
 }
 
 #pragma mark - misc
